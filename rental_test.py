@@ -39,12 +39,12 @@ class RentalTest(unittest.TestCase):
 		"""Test rental_points method in rental, check if it returns correctly."""
 		# New Release Movie
 		rental = Rental(self.new_movie, 3)
-		self.assertEqual(rental.rental_points(), 3)
+		self.assertEqual(rental.get_rental_points(), 3)
 		rental = Rental(self.new_movie, 15)
-		self.assertEqual(rental.rental_points(), 15)
+		self.assertEqual(rental.get_rental_points(), 15)
 		# Regular Movie
 		rental = Rental(self.regular_movie, 2)
-		self.assertEqual(rental.rental_points(), 1)
+		self.assertEqual(rental.get_rental_points(), 1)
 		# Children Movie
 		rental = Rental(self.childrens_movie, 8)
-		self.assertEqual(rental.rental_points(), 1)
+		self.assertEqual(rental.get_rental_points(), 1)

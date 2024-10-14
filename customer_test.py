@@ -48,3 +48,16 @@ class CustomerTest(unittest.TestCase):
 		movie3 = Rental(self.regular_movie, 6)
 		self.c.add_rental(movie3)
 		self.assertEqual(self.c.get_total_charge(), movie1.get_price() + movie2.get_price() + movie3.get_price())
+
+	def test_total_rental_points(self):
+		"""Test total_rental_points method, check if it computes the point correct after add new rental."""
+		movie1 = Rental(self.new_movie, 4)
+		self.c.add_rental(movie1)
+		self.assertEqual(self.c.get_total_rental_points(), movie1.get_rental_points())
+		movie2 = Rental(self.childrens_movie, 3)
+		self.c.add_rental(movie2)
+		self.assertEqual(self.c.get_total_rental_points(), movie1.get_rental_points() + movie2.get_rental_points())
+		movie3 = Rental(self.regular_movie, 6)
+		self.c.add_rental(movie3)
+		self.assertEqual(self.c.get_total_rental_points(),
+						 movie1.get_rental_points() + movie2.get_rental_points() + movie3.get_rental_points())
