@@ -1,14 +1,19 @@
+from typing import Collection
+from dataclasses import dataclass
+
+
+@dataclass(init=True, frozen=True)
 class Movie:
     """
-    A movie available for rent.
+    Class for keeping track of movie available for rent.
     """
-
-    def __init__(self, title):
-        # Initialize a new movie.
-        self.title = title
-
-    def get_title(self):
-        return self.title
+    title: str
+    year: int
+    genre: Collection[str]
 
     def __str__(self):
         return self.title
+
+    def is_genre(self, genre):
+        """Check if the given genre matches any of the movie’s genre."""
+        return genre.lower() in [this_genre.lower() for this_genre in self.genre]
