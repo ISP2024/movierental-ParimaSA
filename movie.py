@@ -24,9 +24,3 @@ class Movie:
 
     def __str__(self):
         return self.title
-
-    def get_price(self, days):
-        return self.price_code().get_price(days)
-
-    def get_rental_points(self, days):
-        return self.price_code().get_rental_points(days)
