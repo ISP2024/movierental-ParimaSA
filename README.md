@@ -18,3 +18,9 @@ Before and after each refactoring you should **run the unit tests**.
 
 See [Resources](https://cpske.github.io/ISP/assignment/movierental/movierental-part1#resources) in the assignment description.
 
+
+## Rational
+2.1 Refactoring sign is Inappropriate Intimacy where one class uses the internal fields of another class.
+
+2.2 The design principle is Single Responsible Principle since the strategy for calculate the price 
+and point should be considered in Rental instead of Movie. 
