@@ -24,3 +24,7 @@ See [Resources](https://cpske.github.io/ISP/assignment/movierental/movierental-p
 
 2.2 The design principle is Single Responsible Principle since the strategy for calculate the price 
 and point should be considered in Rental instead of Movie. 
+
+5.2 I implement the method in Rental class since I think the Rental class has responsibility for decide the price of 
+the movie that will be rented at that time. It would be suitable for this class to have this method because price code 
+has direct association with price and rental point.

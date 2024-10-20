@@ -1,5 +1,5 @@
 import logging
-from pricing import PriceStrategy
+from pricing import PriceStrategy, NewRelease, ChildrenPrice, RegularPrice
 from movie import Movie
 
 
@@ -14,17 +14,13 @@ class Rental:
 	For simplicity of this application only days_rented is recorded.
 	"""
 
-	def __init__(self, movie, days_rented, price_code):
+	def __init__(self, movie, days_rented):
 		"""Initialize a new movie rental object for
     	   a movie with known rental period (daysRented).
     	"""
-		if not issubclass(price_code, PriceStrategy):
-			log = logging.getLogger()
-			log.error(f"Movie {movie.title} has unrecognized priceCode {price_code}")
 		self.movie = movie
 		self.days_rented = days_rented
-		self.price_code = price_code
-
+		self.price_code = self.price_code_for_movie()
 
 	def get_movie(self):
 		return self.movie
@@ -43,3 +39,10 @@ class Rental:
 	def get_rental_points(self):
 		"""Compute the renter points based on movie price code"""
 		return self.price_code().get_rental_points(self.days_rented)
+
+	def price_code_for_movie(self):
+		if self.get_movie().is_release_this_year():
+			return NewRelease
+		if self.get_movie().is_genre("Children") or self.get_movie().is_genre("Childrens"):
+			return ChildrenPrice
+		return RegularPrice

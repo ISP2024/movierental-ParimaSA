@@ -1,6 +1,7 @@
 import csv
 from typing import Collection
 from dataclasses import dataclass
+from datetime import date
 
 
 @dataclass(init=True, frozen=True)
@@ -18,6 +19,10 @@ class Movie:
     def is_genre(self, genre):
         """Check if the given genre matches any of the movie’s genre."""
         return genre.lower() in [this_genre.lower() for this_genre in self.genre]
+
+    def is_release_this_year(self):
+        """Check if movie release this year."""
+        return self.year == date.today().year
 
 
 class MovieCatalog:
