@@ -15,6 +15,8 @@ class RentalTest(unittest.TestCase):
 		"""trivial test to catch refactoring errors or change in API of Movie"""
 		m = Movie("Air", 2020, ["Comedy", "Kid"])
 		self.assertEqual("Air", m.title)
+		self.assertEqual(2020, m.year)
+		self.assertTrue(m.is_genre("Comedy"))
 
 	def test_rental_price(self):
 		"""Test get_price method in rental, check if it returns correct price."""
