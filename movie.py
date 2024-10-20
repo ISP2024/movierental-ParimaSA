@@ -2,6 +2,7 @@ import csv
 from typing import Collection
 from dataclasses import dataclass
 from datetime import date
+import logging
 
 
 @dataclass(init=True, frozen=True)
@@ -36,17 +37,34 @@ class MovieCatalog:
             cls._instance.load_movie_data()
         return cls._instance
 
+    @staticmethod
+    def unrecognized_format(row, m):
+        log = logging.getLogger()
+        log.error(f"Line {row}: Unrecognized format {', '.join(m)}")
+
     def load_movie_data(self):
         """Load movies from a CSV file line by line."""
         with open("movies.csv", mode='r', newline='') as file:
             reader = csv.reader(file)
             next(reader)
-            for row in reader:
-                title = row[1]
-                year = row[2]
-                genres = row[3].split('|')
-                m = Movie(title=title, year=year, genre=genres)
-                self.movies.append(m)
+            row = 0
+            for m in reader:
+                row += 1
+                if not m or m[0] == '#':
+                    # blank or comment line
+                    continue
+                if len(m) != 4:
+                    self.unrecognized_format(row, m)
+                    continue
+                try:
+                    title = m[1]
+                    year = int(m[2])
+                    genres = m[3].split('|')
+                    m = Movie(title=title, year=year, genre=genres)
+                    self.movies.append(m)
+                except ValueError:
+                    self.unrecognized_format(row, m)
+                    continue
 
     def get_movie(self, title, year=None):
         for m in self.movies:
